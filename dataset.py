@@ -1,5 +1,6 @@
 import numpy as np
-from tensorflow.keras.datasets import mnist
+# Use tensorflow.keras.datasets if this doesn't work
+from keras.datasets import mnist
 
 def one_hot_encode(Y, num_classes=10):
     m = Y.shape[0]
