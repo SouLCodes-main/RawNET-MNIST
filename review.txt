@@ -3,7 +3,7 @@ From engine.py, review HE intialization of layer 1.
 
 Review entire data.py block
 
-
+Review the training functions
 
 ------------------------------------------------------------
 

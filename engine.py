@@ -18,7 +18,7 @@ def forward_propagation(X, W1, b1, W2, b2):
     Z1 = np.dot(X, W1) + b1
     A1 = ReLU(Z1)
 
-    #Second Layer
+    # Second Layer
     Z2 = np.dot(A1, W2) + b2
     A2 = Softmax(Z2)
 
