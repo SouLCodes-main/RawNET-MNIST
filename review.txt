@@ -1,3 +1,10 @@
 From engine.py, review HE intialization of layer 1.
     backward propagation, review gradient functions
-    
+
+Review entire data.py block
+
+
+
+------------------------------------------------------------
+
+What if we use sigmoid instead of ReLU in the first layer?
