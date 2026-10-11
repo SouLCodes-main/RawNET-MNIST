@@ -1,0 +1,3 @@
+From engine.py, review HE intialization of layer 1.
+    backward propagation, review gradient functions
+    
