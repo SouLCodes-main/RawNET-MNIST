@@ -14,7 +14,7 @@ def create_mini_batches(X, Y, batch_size=128):
     
     for k in range(num_complete_batches):
         batch_X = shuffled_X[k * batch_size : (k + 1) * batch_size, :]
-        batch_Y = shuffled_Y[k * batch_size : (k + 1) * batch_size, :]
+        batch_Y = shuffled_Y[k * batch_size : (k + 1) * batch_size, :] 
         mini_batches.append((batch_X, batch_Y))
         
     if m % batch_size != 0:
@@ -28,7 +28,7 @@ def train_L_layer_model(X_train, Y_train_encoded, layer_dims, learning_rate=0.1,
     # 1. Initialize dynamic dictionary
     parameters = initialize_parameters_deep(layer_dims)
     cost_history = []
-    L = len(parameters) // 2  # Divides by 2 because dictionary has W and b for each layer
+    L = len(parameters) // 2  
     
     for epoch in range(epochs):
         epoch_cost = 0
