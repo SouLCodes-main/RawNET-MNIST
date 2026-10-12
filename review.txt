@@ -1,5 +1,5 @@
 From engine.py, review HE intialization of layer 1.
-    backward propagation, review gradient functions
+    backward propagation, review gradient functions DONE
 
 Review entire data.py block
 
