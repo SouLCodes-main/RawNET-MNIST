@@ -2,6 +2,7 @@
 
 A pure-NumPy, functional-style neural network built entirely from scratch to classify handwritten digits. This project demonstrates the core calculus of deep learning by implementing a custom mathematics engine, He Initialization, ReLU/Softmax activations, and mini-batch gradient descent, all without relying on auto-differentiation frameworks like PyTorch or TensorFlow.
 
+[![Accuracy](https://img.shields.io/badge/Accuracy-98.02%25-success)](#)
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python Version](https://img.shields.io/badge/python-3.13-blue.svg)](https://www.python.org/)
 [![NumPy Version](https://img.shields.io/badge/NumPy-2.5.4-orange.svg)](https://numpy.org/)
@@ -10,46 +11,49 @@ A pure-NumPy, functional-style neural network built entirely from scratch to cla
 
 ## Table of Contents 📚
 
-* [Project Title & Badges](#rawNET-MNIST-)
-* [Description](#description)
-* [Features](#features-)
-* [Tech Stack](#tech-stack-)
-* [Installation](#installation-)
-* [Usage](#usage-)
-* [Project Structure](#project-structure-)
-* [Contributing](#contributing-)
-* [License](#license-)
-* [Important Links](#important-links-)
-* [Footer](#footer-)
+- [Project Title & Badges](#rawnet-mnist-)
+- [Description](#description-)
+- [Features](#features-)
+- [Tech Stack](#tech-stack-)
+- [Installation](#installation-)
+- [Usage](#usage-)
+- [Project Structure](#project-structure-)
+- [Contributing](#contributing-)
+- [License](#license-)
+- [Important Links](#important-links-)
+- [Footer](#footer-)
 
 ---
 
 ## Description 📝
 
-RawNET-MNIST is an educational project that dives deep into the fundamental principles of neural networks. It's a complete implementation of a feedforward neural network using only NumPy, eschewing high-level deep learning libraries. The network is trained on the iconic MNIST dataset for handwritten digit classification. This project serves as an excellent resource for understanding the inner workings of neural networks, from matrix operations and activation functions to gradient descent and backpropagation.
+RawNET-MNIST is an educational project that dives deep into the fundamental principles of neural networks. It is a complete implementation of a feedforward neural network using only NumPy, eschewing high-level deep learning libraries. 
+
+Originally built as a 2-layer network, it has been engineered into a **Dynamic L-Layer Architecture**, capable of generating and training any sequence of hidden layers dynamically. The project also includes a live interactive web canvas, allowing users to draw digits and test the pure-math engine in real-time.
 
 ---
 
 ## Features ✨
 
-* **Pure NumPy Implementation:** No external deep learning frameworks (PyTorch, TensorFlow) used for core network operations.
-* **Custom Mathematics Engine:** Implements all necessary mathematical operations from scratch.
-* **He Initialization:** Utilizes He initialization for weights, suitable for ReLU activation functions.
-* **Activation Functions:** Includes ReLU (Rectified Linear Unit) for hidden layers and Softmax for the output layer.
-* **Mini-Batch Gradient Descent:** Implements efficient training using mini-batches.
-* **MNIST Dataset Compatibility:** Specifically designed and trained on the MNIST handwritten digit dataset.
-* **Functional Style:** Adopts a functional programming style for clarity and modularity.
-* **Detailed Backpropagation:** Explicit implementation of the backpropagation algorithm.
+- **Dynamic L-Layer Architecture:** Configure any number of layers and nodes dynamically (e.g., `[784, 128, 64, 10]`) using intelligent dictionary state management.
+- **Interactive Web UI:** Features a local Gradio web server with a drawing canvas to test the model's inference in real-time.
+- **Pure NumPy Implementation:** No external deep learning frameworks (PyTorch, TensorFlow) used for core network operations.
+- **Custom Mathematics Engine:** Implements all necessary mathematical operations from scratch.
+- **He Initialization:** Utilizes He initialization for weights, mathematically tuned for ReLU activation functions.
+- **Activation Functions:** Includes ReLU (Rectified Linear Unit) for hidden layers and a numerically stable Softmax for the output layer.
+- **Mini-Batch Gradient Descent:** Implements efficient training using mini-batches and Categorical Cross-Entropy loss.
+- **Model Serialization:** Saves trained weights as `.npy` binaries for instant UI loading without retraining.
 
 ---
 
 ## Tech Stack 💻
 
-* **Language:** Python
-* **Core Library:** NumPy
-* **Data Loading:** Keras Datasets (via `keras` package)
-* **Plotting:** Matplotlib
-* **Build System:** uv_build
+- **Language:** Python
+- **Core Library:** NumPy
+- **UI Canvas:** Gradio, Pillow (PIL)
+- **Data Loading:** Keras Datasets (via `keras` package, used strictly for downloading data)
+- **Plotting:** Matplotlib
+- **Build System:** uv_build
 
 ---
 
@@ -59,49 +63,43 @@ This project is designed to be run with Python 3.13+. The `pyproject.toml` file 
 
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/SouLCodes-main/RawNET-MNIST.git
+    git clone [https://github.com/SouLCodes-main/RawNET-MNIST.git](https://github.com/SouLCodes-main/RawNET-MNIST.git)
     cd RawNET-MNIST
     ```
 
 2.  **Install dependencies:**
     It is recommended to use a virtual environment.
 
-    Using `pip`:
+    Using `pip` for direct execution:
     ```bash
-    pip install -r requirements.txt # If a requirements.txt is generated or preferred
-    # Or directly from pyproject.toml if your pip version supports it well:
-    pip install --no-deps --editable . 
-    ```
-    (Note: The `pyproject.toml` has dependencies listed, a direct `pip install .` should work, but the provided `uv.lock` and `pyproject.toml` suggest a build system like `uv_build`. A simpler approach for direct execution is installing listed dependencies):
-
-    ```bash
-    pip install keras matplotlib numpy
+    pip install numpy matplotlib keras gradio pillow
     ```
 
     Using `uv` (if you have it installed):
     ```bash
-      uv pip install . 
+    uv pip install . 
     ```
 
 ---
 
 ## Usage 🚀
 
-The primary script for training and evaluating the model is `train.py`. Running this script will:
+The project operates in two phases: Training the engine, and testing it via the UI.
 
-1.  Load and preprocess the MNIST dataset.
-2.  Initialize the neural network parameters.
-3.  Train the network using mini-batch gradient descent.
-4.  Evaluate the trained model on the unseen test set.
-5.  Display a plot of the learning curve (loss over epochs).
-
-**To run the training process:**
+### 1. Train the Model
+Running `train.py` will load the data, dynamically initialize the L-layer architecture, execute the mini-batch training loop, output the test accuracy, and save the serialized weights to your disk.
 
 ```bash
 python train.py
 ```
 
-This will output the training progress, final test accuracy, and show a plot of the loss history.
+### 2. Launch the Interactive Canvas
+Once trained, launch the UI script to open a local web server. You can draw numbers on the canvas and watch the custom NumPy engine predict them in real-time.
+
+```bash
+python ui.py
+```
+*(Navigate to `http://127.0.0.1:7860` in your browser to use the app).*
 
 ---
 
@@ -110,43 +108,31 @@ This will output the training progress, final test accuracy, and show a plot of 
 This project serves as a foundational example of building a neural network from scratch. It's ideal for:
 
 *   **Learning Deep Learning Fundamentals:** Understand how neural networks work under the hood without the abstraction of libraries like TensorFlow or PyTorch.
-*   **Educational Purposes:** A practical demonstration for students and developers wanting to grasp concepts like forward propagation, backpropagation, gradient descent, and activation functions.
-*   **Experimentation:** Modify hyperparameters (learning rate, epochs, batch size, hidden units) to observe their impact on training and accuracy.
-
-**Example Use Case:**
-
-After cloning and installing dependencies, simply execute `train.py` to see the network learn to classify handwritten digits from the MNIST dataset. The script will guide you through the process, showing the accuracy achieved on test data.
+*   **Vectorization & State Management:** See how standard Python `for` loops are replaced with lightning-fast C++ matrix operations via NumPy, using dictionaries to track forward caches and backward gradients.
+*   **Experimentation:** Modify the `layer_dims` array in `train.py` to add or remove layers and observe how depth impacts accuracy.
 
 ---
 
 ## Project Structure 📂
 
-```
+```text
 RawNET-MNIST/
 ├── .python-version
 ├── LICENSE
 ├── README.md
-├── activations.py
-├── dataset.py
-├── engine.py
+├── activations.py      # Pure math functions: ReLU, Softmax, and their derivatives
+├── dataset.py          # MNIST fetcher, data flattener, and One-Hot encoder
+├── engine.py           # The calculus core: dynamic initialization, forward pass, chain rule backprop
+├── train.py            # Orchestrator: batch generator, training loop, and metrics logging
+├── ui.py               # Gradio-powered interactive web canvas for live inference
+├── trained_parameters.npy # Serialized weight matrices generated post-training
 ├── pyproject.toml
 ├── review.txt
 ├── src/
 │   └── rawnet_mnist/
 │       ├── __init__.py
-├── train.py
 └── uv.lock
 ```
-
-*   `README.md`: This file.
-*   `pyproject.toml`: Project metadata and build configuration.
-*   `LICENSE`: The project's license file.
-*   `activations.py`: Contains activation functions (ReLU, Softmax) and helper functions for predictions and accuracy.
-*   `dataset.py`: Handles loading, preprocessing, and one-hot encoding of the MNIST dataset.
-*   `engine.py`: Implements the core neural network logic: parameter initialization, forward propagation, cost computation, and backward propagation.
-*   `train.py`: The main script for training the model, handling mini-batches, training loops, evaluation, and plotting.
-*   `src/rawnet_mnist/`: Contains the main package structure, with `__init__.py` for the entry point.
-*   `.python-version`, `review.txt`, `uv.lock`: Auxiliary files.
 
 ---
 
@@ -182,6 +168,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **RawNET-MNIST** | Built with ❤️ by [SouLCodes-main](https://github.com/SouLCodes-main)
 
-[▲ Back to Top](#rawNET-MNIST-)
+[▲ Back to Top](#rawnet-mnist-)
 
 ---
